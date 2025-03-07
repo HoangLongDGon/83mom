@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chúc Mừng Ngày 8/3 Mẹ Hải</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        .container {
+            margin-top: 50px;
+            position: relative;
+            z-index: 2;
+        }
+        h1 {
+            color: #e60073;
+            font-size: 30px;
+            animation: fadeIn 2s ease-in-out;
+        }
+        p {
+            font-size: 20px;
+            color: #333;
+        }
+        .heart {
+            color: red;
+            font-size: 26px;
+        }
+        .mailbox {
+            display: inline-block;
+            width: 80px;
+            height: 80px;
+            background-color: #ff66b2;
+            border-radius: 12px;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+        }
+        .mailbox:hover {
+            transform: scale(1.1);
+        }
+        .mailbox::before {
+            content: "\1F4E9";
+            font-size: 50px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .full-image {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 20;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+        }
+        .full-image img {
+            max-width: 80%;
+            max-height: 80%;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+        }
+        .message-container {
+            display: none;
+            margin-top: 50px;
+        }
+        .message {
+            font-size: 26px;
+            color: #d6005a;
+            font-weight: bold;
+            margin: 10px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .flower {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: pink;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            from { transform: translateY(-100px) translateX(0); opacity: 1; }
+            to { transform: translateY(100vh) translateX(30px); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Chúc Mừng Ngày 8/3 Mẹ Hải Đẹp Gái <span class="heart">❤️</span></h1>
+        <p>Chúc mẹ luôn mạnh khỏe, vui vẻ và hạnh phúc.</p>
+        <p>Mẹ là người tuyệt vời nhất trong cuộc đời con!</p>
+        <div class="mailbox" id="loveMail" onclick="startCelebration()"></div>
+        <div class="full-image" id="fullImage">
+            <img src="me_hai.jpg" alt="Mẹ Hải Đẹp Gái">
+        </div>
+        <div class="message-container" id="messageContainer">
+            <p class="message">💖 Chúc mẹ ngày 8/3 vui vẻ 💖</p>
+            <p class="message">🌸 Mẹ là bông hoa đẹp nhất đời con 🌸</p>
+            <p class="message">💝 Cảm ơn mẹ đã luôn yêu thương con 💝</p>
+            <p class="message">🎉 Chúc mẹ luôn hạnh phúc và bình an 🎉</p>
+            <p class="message">💗 Yêu mẹ rất nhiều! 💗</p>
+        </div>
+       
+        <audio id="bgMusic">
+            <source src="chucmung83.mp3" type="audio/mpeg">
+            Trình duyệt của bạn không hỗ trợ phát nhạc.
+        </audio>
+    </div>
+    <script>
+        function startCelebration() {
+            document.getElementById("bgMusic").play();
+            createFlowers();
+            
+            let image = document.getElementById("fullImage");
+            let mailbox = document.getElementById("loveMail");
+            let messages = document.querySelectorAll(".message");
+            let exitButton = document.getElementById("exitButton");
+        
+            // Hiển thị hình ảnh trước khi hiển thị chữ
+            image.style.display = "flex";
+            mailbox.style.display = "none";
+            setTimeout(() => { image.style.opacity = "1"; }, 100);
+            
+            setTimeout(() => {
+                image.style.opacity = "0";
+                setTimeout(() => {
+                    image.style.display = "none";
+                    document.getElementById("messageContainer").style.display = "block";
+                    
+                    messages.forEach((msg, index) => {
+                        setTimeout(() => {
+                            msg.style.opacity = "1";
+                            msg.style.transform = "translateY(0)";
+                        }, index * 1200); // Xuất hiện chậm hơn và mượt hơn
+                    });
+        
+                    setTimeout(() => {
+                        exitButton.style.display = "block";
+                        setTimeout(() => {
+                            exitButton.style.opacity = "1";
+                        }, 500);
+                    }, messages.length * 1200);
+        
+                }, 1500);
+            }, 5000);
+        }
+        
+        function resetScreen() {
+            document.getElementById("bgMusic").pause();
+            document.getElementById("messageContainer").style.display = "none";
+            document.getElementById("exitButton").style.display = "none";
+            document.getElementById("loveMail").style.display = "inline-block";
+            document.querySelectorAll(".flower").forEach(flower => flower.remove());
+        }
+        function createFlowers() {
+            for (let i = 0; i < 30; i++) {
+                let flower = document.createElement("div");
+                flower.classList.add("flower");
+                flower.style.left = Math.random() * window.innerWidth + "px";
+                flower.style.animationDuration = (Math.random() * 3 + 2) + "s";
+                document.body.appendChild(flower);
+            }
+        }
+    </script>
+</body>
+</html>
